@@ -1,0 +1,201 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TT RIJAL BROZ</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>TT - RIJAL BROs</h1>
+        <h2 style="font-size: small; text-align: center; margin: 0;">The journey of Joy .. ֎ </h2>
+        <form id="journeyForm">
+            <label for="journeyDate"><strong>Date of Journey:</strong></label>
+            <input type="date" id="journeyDate" required>
+
+            <label for="journeyType"><strong>Type of Journey:</strong></label>
+            <select id="journeyType">
+                <option value="Regular">Regular</option>
+                <option value="Excursion">Excursion</option>
+                <option value="Tirtha">Tirtha</option>
+            </select>
+
+            <label for="vehicleNo"><strong>Vehicle No. & Name:</strong></label>
+            <select id="vehicleNo">
+                <option value="MN01G 3240(RB-1 Winger-14-Seater)">MN01G - 3240 ( RB-1 Winger-14-Seater )</option>
+                <option value="WB76A 4970(RB-2 WB-14-Seater)">WB76A - 4970 ( RB-2 WB-14-Seater)</option>
+                <option value="MN01D 0186(RB-3 MN-20-Seater)">MN01D - 0186 ( RB-3 MN-20-Seater )</option>
+                <option value="WB73H 1456(RB-4 WB-17-Seater_AC">WB73H - 1456 ( RB-4 WB-17-Seater_AC )</option>
+            </select>
+
+            <label for="startedFrom"><strong>Started From:</strong></label>
+            <select id="startedFrom">
+                <option value="KANGLATONGBI">KANGLATONGBI</option>
+                <option value="SILIGURI">SILIGURI</option>
+                <option value="IMPHAL">IMPHAL</option>
+                <option value="DIMAPUR">DIMAPUR</option>
+            </select>
+
+<label for="noOfPassengers"><strong>No. of Passengers:</strong></label>
+<select id="noOfPassengers">
+    <option value="">Select Number of Passengers</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option>
+    <option value="8">8</option>
+    <option value="9">9</option>
+    <option value="10">10</option>
+    <option value="11">11</option>
+    <option value="12">12</option>
+    <option value="13">13</option>
+    <option value="14">14</option>
+    <option value="15">15</option>
+    <option value="16">16</option>
+    <option value="17">17</option>
+    <option value="18">18</option>
+    <option value="19">19</option>
+    <option value="20">20</option>
+    <option value="21">21</option>
+    <option value="22">22</option>
+</select>
+            <label for="goodsCharges"><strong>Goods Charges:</strong></label>
+            <input type="number" id="goodsCharges" value="0">
+
+            <label for="routeKharcha"><strong>Route Kharcha:</strong></label>
+            <input type="number" id="routeKharcha" value="0">
+
+            <label for="miscKharcha"><strong>Misc. Kharcha (Repair):</strong></label>
+            <input type="number" id="miscKharcha" value="0">
+
+            <label for="amountHandler"><strong>Amount Handler:</strong></label>
+            <select id="amountHandler">
+                <option value="BIMAL RIJAL">BIMAL RIJAL</option>
+                <option value="GANGARAM RIJAL">GANGARAM RIJAL</option>
+                <option value="DHANAPATI RIJAL">DHANAPATI RIJAL</option>
+            </select>
+
+            <div class="output">
+                <label for="totalRemaining"><strong>Total Remaining:</strong></label>
+                <input type="text" id="totalRemaining" readonly>
+            </div>
+
+            <div class="total-amount">
+                <strong>Total Amount for <span id="journeyDateOutput"></span> is : Rs</strong> 
+                <strong><span id="totalAmount"></span></strong> 
+                <strong>(Handled by <span id="amountHandlerOutput"></span>)</strong>
+            </div>
+
+            <button type="button" onclick="calculateTotal()">Calculate Total</button>
+        </form>
+        <footer>
+            <p>&copy; 2024 Dhanez Rijal. All rights reserved.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        // Set default date on load
+        document.getElementById('journeyDate').valueAsDate = new Date();
+
+        function formatDate(date) {
+            const options = { day: '2-digit', month: 'long', year: 'numeric' };
+            return new Date(date).toLocaleDateString('en-US', options);
+        }
+
+        function calculateTotal() {
+            const passengers = parseInt(document.getElementById('noOfPassengers').value);
+            const goodsCharges = parseInt(document.getElementById('goodsCharges').value) || 0;
+            const routeKharcha = parseInt(document.getElementById('routeKharcha').value) || 0;
+            const miscKharcha = parseInt(document.getElementById('miscKharcha').value) || 0;
+            const journeyDate = document.getElementById('journeyDate').value;
+            const formattedDate = formatDate(journeyDate);
+            const amountHandler = document.getElementById('amountHandler').value;
+
+            const totalRemaining = (2700 * passengers) + goodsCharges - (routeKharcha + miscKharcha);
+
+            document.getElementById('totalRemaining').value = totalRemaining;
+            document.getElementById('journeyDateOutput').textContent = formattedDate;
+            document.getElementById('totalAmount').textContent = totalRemaining;
+            document.getElementById('amountHandlerOutput').textContent = amountHandler;
+        }
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #f0f0f0, #c0c0c0);
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            animation: fadeIn 1s;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 400px;
+            animation: slideIn 0.5s forwards;
+        }
+
+        h1 {
+            text-align: center;
+            color: #4a4a4a;
+        }
+
+        h2 {
+            text-align: center;
+            color: #777;
+            margin: 0; /* Ensures no additional margin */
+        }
+
+        label {
+            margin-top: 10px;
+            display: block;
+        }
+
+        input, select {
+            width: calc(100% - 30px);
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .output, .total-amount {
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+    </style>
+</body>
+</html>
